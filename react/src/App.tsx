@@ -8,6 +8,7 @@ function App() {
     const script = document.createElement("script");
     script.src = "/wasm_exec.js";
     script.onload = async () => {
+    
       const go = new window.Go();
       const { instance } = await WebAssembly.instantiateStreaming(
         fetch("/main.wasm"),
@@ -23,6 +24,7 @@ function App() {
   };
   const handleSayHello = () => {
     setHello(window.sayHello(name));
+    setName("")
   };
 
   return (
@@ -43,10 +45,12 @@ function App() {
             onChange={(e) => setName(e.target.value)}
             placeholder="Set Name"
             className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={name}
           />
           <button
             onClick={handleSayHello}
             className="w-full px-4 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition"
+            
           >
             Say Hello
           </button>
